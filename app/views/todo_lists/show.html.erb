@@ -1,0 +1,94 @@
+<div class="container">
+	<div class="form-group">
+		<p>
+			<strong>For Todo List:</strong>
+			<legend><%= @todo_list.title %></legend>
+		</p>
+	</div>
+
+	<%= link_to 'Add ToDo Item',  new_todo_list_todo_item_path(@todo_list) %>
+	<br/>
+	<br/>
+
+
+	<%#= render @todo_list.todo_items%>
+	<%if !@todo_list.todo_items.empty?%>
+	<table class="table table-hover table-striped table-condensed">
+		<tr>
+			<div >
+				<th>Content</th>
+				<th>Actions</th>
+			</div>
+			<% @todo_list.todo_items.each do |todo| %>
+			<tr>
+				<%#puts todo.status%>
+				<%if !todo.status%>
+				<td><%=  todo.content%></td>
+
+				<td><%= link_to(
+					content_tag(
+						:i,
+						nil, 
+						class: 'ion-ios-checkmark-outline action-icon',
+							title: "done"
+							), 
+					:controller => "todo_items",
+					:action => "updateStatus",
+					:id => todo.id,
+					:status => todo.status,
+					:list => @todo_list.id
+					) 
+					%>
+					<%= link_to(
+						content_tag(
+							:i,
+							nil, 
+							class: 'ion-ios-trash-outline action-icon',
+								title: "delete"
+								),
+						:controller => "todo_items",
+						:action => "destroy",
+						:id => todo.id,
+						) 
+						%></td>
+
+						<%else%>
+						<td style="color:#009900"><%=  todo.content%></td>
+
+						<td><%= link_to(
+							content_tag(
+								:i,
+								nil, 
+								class: 'ion-ios-close-outline action-icon',
+									title: "undone"
+									), 
+							:controller => "todo_items",
+							:action => "updateStatus",
+							:id => todo.id,
+							:status => todo.status,
+							:list => @todo_list.id
+							) 
+							%>
+							<%= link_to(
+								content_tag(
+									:i,
+									nil, 
+									class: 'ion-ios-trash-outline action-icon',
+										title: "delete"
+										), 
+
+								:controller => "todo_items",
+								:action => "destroy",
+								:id => todo.id, 
+								) 
+								%></td>
+							</i>
+						</tr>
+						<%end%>
+						<%#= link_to 'Delete', todo_item_path(@todo_list,todo_items.id), :method=> :put %>
+						<%end%>
+
+					</tr>
+				</table>
+				<%end%>
+</div>

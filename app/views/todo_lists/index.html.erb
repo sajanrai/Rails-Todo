@@ -1,0 +1,80 @@
+<div class="container">
+
+  <p id="notice"><%= notice %></p>
+  <% if user_signed_in? %>
+    <legend>Your To-do List</legend>
+
+  <%if @todo_lists %>
+
+  <div class="container">
+  </div>
+
+  <table class="table table-striped table-hover table-condensed">
+    <thead>
+      <tr>
+        <div >
+          <th>Title</th>
+          <th>Actions</th>
+        </div>
+      </tr>
+    </thead>
+    <tbody>
+      <% @todo_lists.each do |todo_list| %>
+      <tr>
+        <td><%= todo_list.title%></td>
+        <td><%= link_to(
+          content_tag(
+            :i,
+            nil, 
+            class: 'ion-ios-paper-outline action-icon',
+            title: "show"
+              ),
+          todo_list,
+          ) 
+          %>
+          <%= link_to(
+            content_tag(
+              :i,
+              nil, 
+              class: 'ion-ios-compose-outline action-icon',
+                title: "edit"
+                ),
+            edit_todo_list_path(todo_list),
+            ) 
+            %>
+
+            <%= link_to(
+              content_tag(
+                :i,
+                nil, 
+                class: 'ion-ios-trash-outline action-icon',
+                title: "delete",
+                
+                  ),
+              todo_list,
+              method: :delete,
+              data: { confirm: 'Are you sure to delete the list and its items?' }
+              ) 
+              %></td>
+
+            </tr>
+
+            <%end%>
+            <br/>
+
+            <p><%= link_to " Add New", new_todo_list_path, :class => "button", :method => :get %></p>
+            <br/>
+
+            <%else%>
+            <p><%= link_to " Add New", new_todo_list_path, :class => "button", :method => :get %></p>
+
+          </tbody>
+        </table>
+
+        <br>
+        <%end %>
+        <%else%>
+        <br/>
+        <center><h1 style="color:#2196f3">Sign in to view the content</h1></center>
+        <%end%>
+</div>

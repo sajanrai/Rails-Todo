@@ -1,0 +1,25 @@
+<div class="container">
+  <%= form_for(@todo_list) do |f| %>
+  <% if @todo_list.errors.any? %>
+     <div id="alert-error">
+    <ul class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <% @todo_list.errors.full_messages.each do |message| %>
+      <li class="alert-error"><%= message %></li>
+      <% end %>
+    </ul>
+      </div>
+      <%else%>
+        <p><%= notice %></p>
+
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title %><br>
+
+    <%= f.text_field :title , class: "form-control"%>
+  </div>
+  <div class="form-actions">
+    <%= f.submit %>
+  </div>
+</div>
+<% end %>
